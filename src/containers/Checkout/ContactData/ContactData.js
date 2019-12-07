@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Button from '../../../components/UI/Button/Button';
 import styles from './../ContactData/ContactData.module.scss'
 import Spinner from '../../../components/UI/Spinner/Spinner';
-
+import  { connect } from 'react-redux';
 import axios from './../../../axios-orders';
 
 class ContactData extends Component {
@@ -19,11 +19,11 @@ class ContactData extends Component {
     orderHandler = (event) => {
         event.preventDefault();
         console.log(this.props)
-        console.log(this.props.ingredients);
+        console.log(this.props.ings);
         this.setState({ loading: true });
         const order = {
-            ingredients: this.state.ingredients,
-            price: this.state.totalPrice,
+            ingredients: this.props.ings,
+            price: this.props.totalPrice,
             customer: {
                 name: 'Muhammad Zakuan',
                 address: {
@@ -49,7 +49,7 @@ class ContactData extends Component {
 
     render() { 
         let form = (
-            <form>
+            <form className={styles.form}>
                 <input className={styles.Input} type="text" name="name" placeholder="Your Name"/>
                 <input className={styles.Input} type="email" name="email" placeholder="Email"/>
                 <input className={styles.Input} type="text" name="street" placeholder="Street"/>
@@ -68,5 +68,11 @@ class ContactData extends Component {
         );
     }
 }
- 
-export default ContactData;
+
+const mapStateToProps = (state) => ({
+    ings: state.ingredients,
+    price: state.totalPice
+})
+
+
+export default connect(mapStateToProps, null)(ContactData)
