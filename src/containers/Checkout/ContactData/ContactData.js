@@ -121,7 +121,6 @@ class ContactData extends Component {
                 config: this.state.orderForm[key]
             });
         }
-        console.log('value form ', this.state.formIsValid);
         form = (
             <form>
                 {formElementArray.map(formElement => (
